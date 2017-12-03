@@ -3,14 +3,19 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.*;
-import service.*;
+import bean.Assunto;
+import bean.Autor;
+import bean.Livro;
+import service.AssuntoService;
+import service.AutorService;
+import service.LivroService;
 
 /**
  * Servlet implementation class Controller
@@ -47,6 +52,11 @@ public class Controller extends HttpServlet {
 				double preco = Double.parseDouble(request.getParameter("precoLivro"));
 				Livro livro = new Livro(codigo, ano, paginas, titulo, imagem, status, preco);
 				LivroService.inserir(livro);
+				
+				String nextJSP = "/confirmacao.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+				dispatcher.forward(request,response);
+				
 			} catch (SQLException e) {
 
 				e.printStackTrace();
@@ -61,6 +71,11 @@ public class Controller extends HttpServlet {
 				String nome = request.getParameter("nomeAutor");
 				Autor autor = new Autor(codigo, nome);
 				AutorService.inserir(autor);
+				
+				String nextJSP = "/confirmacao.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+				dispatcher.forward(request,response);
+				
 			} catch (SQLException e) {
 
 				e.printStackTrace();
@@ -74,6 +89,11 @@ public class Controller extends HttpServlet {
 				String descricao = request.getParameter("descricao");
 				Assunto assunto = new Assunto(codigo, descricao);
 				AssuntoService.inserir(assunto);
+				
+				String nextJSP = "/confirmacao.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+				dispatcher.forward(request,response);
+				
 			} catch (SQLException e) {
 
 				e.printStackTrace();
